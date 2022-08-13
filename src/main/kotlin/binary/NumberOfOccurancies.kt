@@ -1,5 +1,0 @@
-package binary
-
-fun main() {
-
-}
