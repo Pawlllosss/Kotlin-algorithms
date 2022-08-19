@@ -4,25 +4,25 @@ import graph.structure.Graph
 import graph.structure.Vertex
 
 // TODO: consider making processing a functional member
-class DepthFirstSearch {
+open class DepthFirstSearch {
 
-    private val discoveredVertices: MutableSet<Vertex> = mutableSetOf()
-    private val processedVertices: MutableSet<Vertex> = mutableSetOf()
-    private val enterTimeByVertex: MutableMap<Vertex, Int> = mutableMapOf()
-    private val exitTimeByVertex: MutableMap<Vertex, Int> = mutableMapOf()
-    private val parentByVertex: MutableMap<Vertex, Vertex> = mutableMapOf()
-    private var time: Int = 0
+    protected val discoveredVertices: MutableSet<Vertex> = mutableSetOf()
+    protected val processedVertices: MutableSet<Vertex> = mutableSetOf()
+    protected val enterTimeByVertex: MutableMap<Vertex, Int> = mutableMapOf()
+    protected val exitTimeByVertex: MutableMap<Vertex, Int> = mutableMapOf()
+    protected val parentByVertex: MutableMap<Vertex, Vertex> = mutableMapOf()
+    protected var time: Int = 0
 
     fun dfs(graph: Graph, root: Vertex) {
         discoveredVertices.add(root)
         time++
         enterTimeByVertex[root] = time
 
-        println("Processing root: ${root.label}")
+        preprocessVertex(root)
 
         for (vertex in graph.getVertexAdjacency(root)) {
             if (!discoveredVertices.contains(vertex)) {
-                println("Processing vertex: ${vertex.label}")
+                processEdge(vertex, root)
                 parentByVertex[vertex] = root
                 dfs(graph, vertex)
             }
@@ -31,5 +31,24 @@ class DepthFirstSearch {
         processedVertices.add(root)
         exitTimeByVertex[root] = time
         time++
+
+        postprocessVertex(root, graph)
+        displayProcessingResults()
+    }
+
+    open fun preprocessVertex(vertex: Vertex) {
+        println("Processing root: ${vertex.label}")
+    }
+
+    open fun processEdge(currentVertex: Vertex, parentVertex: Vertex) {
+        println("Processing edge between ${currentVertex.label} and ${parentVertex.label}")
+    }
+
+    open fun postprocessVertex(vertex: Vertex, graph: Graph) {
+        println("Postprocessing root: ${vertex.label}")
+    }
+
+    open fun displayProcessingResults() {
+        println("Processed vertices: ${this.processedVertices}")
     }
 }
