@@ -53,32 +53,32 @@ class KmsSubstringMatcher {
 
             prefixSuffixIndexes[0] = 0
 
-            var i = 0 // pattern beginning
-            var j = 1 // pattern end
+            var beg = 0
+            var end = 1
 
-            while (j < substring.length) {
-                if (substring[i] == substring[j]) {
-                    prefixSuffixIndexes[j] = i + 1
-                    i++
+            while (end < substring.length) {
+                if (substring[beg] == substring[end]) {
+                    prefixSuffixIndexes[end] = beg + 1
+                    beg++
                 } else {
-                    prefixSuffixIndexes[j] = 0
+                    prefixSuffixIndexes[end] = 0
 
-                    i = prefixSuffixIndexes[if (i > 0) i - 1 else 0]
-                    while (i > 0) {
-                        if (substring[i] == substring[j]) {
-                            prefixSuffixIndexes[j] = i + 1
+                    beg = prefixSuffixIndexes[if (beg > 0) beg - 1 else 0]
+                    while (beg > 0) {
+                        if (substring[beg] == substring[end]) {
+                            prefixSuffixIndexes[end] = beg + 1
                             break
                         }
 
-                        i = prefixSuffixIndexes[if (i > 0) i - 1 else 0]
+                        beg = prefixSuffixIndexes[if (beg > 0) beg - 1 else 0]
                     }
 
-                    if (substring[i] == substring[j]) {
-                        prefixSuffixIndexes[j] = i + 1
+                    if (substring[beg] == substring[end]) {
+                        prefixSuffixIndexes[end] = beg + 1
                     }
                 }
 
-                j++
+                end++
             }
 
             return prefixSuffixIndexes
