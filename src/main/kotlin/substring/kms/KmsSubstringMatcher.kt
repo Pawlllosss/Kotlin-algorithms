@@ -31,7 +31,11 @@ class KmsSubstringMatcher {
                         substringIndex++
                         break
                     }
-                    substringIndex = substringPrefixSuffixIndexes[substringIndex]
+                    substringIndex = substringPrefixSuffixIndexes[if (substringIndex > 0) substringIndex - 1 else 0]
+
+                    if (toMatchCharacter == substring[substringIndex]) {
+                        substringIndex++
+                    }
                 }
             }
         }
@@ -67,6 +71,10 @@ class KmsSubstringMatcher {
                         }
 
                         i = prefixSuffixIndexes[if (i > 0) i - 1 else 0]
+                    }
+
+                    if (substring[i] == substring[j]) {
+                        prefixSuffixIndexes[j] = i + 1
                     }
                 }
 
