@@ -2,14 +2,19 @@ package backtracking.subset
 
 class SubsetGenerator {
 
-    fun generatePossibleSubsets(input: List<Int>): List<List<Int>> {
-        val result = mutableListOf<List<Int>>()
-        val includedPositions = mutableListOf(false, false, false)
+    fun generatePossibleSubsets(input: Set<Int>): List<Set<Int>> {
+        val result = mutableListOf<Set<Int>>()
+        val includedPositions = List(input.size) { false }.toMutableList()
         generatePossibleSubsets(input, includedPositions, result, 0)
         return result
     }
 
-    private fun generatePossibleSubsets(input: List<Int>, includedPositions: MutableList<Boolean>, subsets: MutableList<List<Int>>, position: Int) {
+    private fun generatePossibleSubsets(
+        input: Set<Int>,
+        includedPositions: MutableList<Boolean>,
+        subsets: MutableList<Set<Int>>,
+        position: Int
+    ) {
         if (position == input.size) {
             val subset = generateSolution(input, includedPositions)
             subsets.add(subset)
@@ -21,7 +26,10 @@ class SubsetGenerator {
         }
     }
 
-    private fun generateSolution(input: List<Int>, includedPositions: List<Boolean>): List<Int> {
-        return input.withIndex().filter { includedPositions[it.index] }.map { it.value }
+    private fun generateSolution(input: Set<Int>, includedPositions: List<Boolean>): Set<Int> {
+        return input.withIndex()
+            .filter { includedPositions[it.index] }
+            .map { it.value }
+            .toSet()
     }
 }

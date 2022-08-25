@@ -2,5 +2,6 @@ package backtracking.subset
 
 fun main() {
     val subsetGenerator = SubsetGenerator()
-    println(subsetGenerator.generatePossibleSubsets(listOf(1, 2, 3)))
+    println(subsetGenerator.generatePossibleSubsets(setOf(1, 2, 3)))
+    println(subsetGenerator.generatePossibleSubsets(setOf(1, 2, 3, 4, 5)))
 }
