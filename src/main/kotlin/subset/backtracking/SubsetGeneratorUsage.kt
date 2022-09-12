@@ -1,4 +1,4 @@
-package backtracking.subset
+package subset.backtracking
 
 fun main() {
     val subsetGenerator = SubsetGenerator()
