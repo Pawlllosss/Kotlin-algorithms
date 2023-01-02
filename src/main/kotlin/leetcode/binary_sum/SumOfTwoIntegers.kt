@@ -1,8 +1,8 @@
 package leetcode.binary_sum
 
 fun main() {
-    println("${getSum(2, 3)} ${binarySum(2, 3)}")
-    println("${getSum(-2, -3)} ${binarySum(-2, -3)}")
+    println("${getSum(2, 3)} ${getBinarySum(2, 3)}")
+    println("${getSum(-2, -3)} ${getBinarySum(-2, -3)}")
 }
 
 fun getSum(a: Int, b: Int): Int {
@@ -20,7 +20,7 @@ fun getSum(a: Int, b: Int): Int {
     return d
 }
 
-fun binarySum(a: Int, b: Int): Int {
+fun getBinarySum(a: Int, b: Int): Int {
     var xorResult = a xor b
     var carryResult = a and b
 
