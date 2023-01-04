@@ -18,4 +18,10 @@ internal class CountingBitsKtTest {
     fun shouldReturnNumberOfBits(n: Int, expectedResult: Array<Int>) {
         assertThat(countBits(n)).contains(expectedResult)
     }
+
+    @ParameterizedTest
+    @MethodSource("numberOfBitsWithResult")
+    fun shouldReturnNumberOfBitsWhenCountingWithShifting(n: Int, expectedResult: Array<Int>) {
+        assertThat(countBitsWithBitShifting(n)).contains(expectedResult)
+    }
 }

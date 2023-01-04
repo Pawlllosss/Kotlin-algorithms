@@ -9,7 +9,7 @@ fun countBits(n: Int): IntArray {
     var currentPowOf2 = 0
     var nextPowOf2 = 1
 
-    for (i in 1 .. n) {
+    for (i in 1..n) {
         if (i == nextPowOf2) {
             numberOfBits[i] = 1
             currentPowOf2 = nextPowOf2
@@ -17,6 +17,18 @@ fun countBits(n: Int): IntArray {
         } else {
             numberOfBits[i] = 1 + numberOfBits[i - currentPowOf2]
         }
+    }
+
+    return numberOfBits
+}
+
+fun countBitsWithBitShifting(n: Int): IntArray {
+    val numberOfBits = IntArray(n + 1)
+
+    for (i in 1..n) {
+        val numberOfBitsAfterShifting = numberOfBits[i shr 1]
+        val oddBit = i and 1
+        numberOfBits[i] = numberOfBitsAfterShifting + oddBit
     }
 
     return numberOfBits
