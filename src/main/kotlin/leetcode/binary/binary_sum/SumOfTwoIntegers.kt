@@ -1,4 +1,4 @@
-package leetcode.binary_sum
+package leetcode.binary.binary_sum
 
 fun main() {
     println("${getSum(2, 3)} ${getBinarySum(2, 3)}")

@@ -1,4 +1,4 @@
-package leetcode.counting_bits
+package leetcode.binary.counting_bits
 
 fun main() {
     println(countBits(5).contentToString())

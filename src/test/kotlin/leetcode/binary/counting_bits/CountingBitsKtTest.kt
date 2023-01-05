@@ -1,4 +1,4 @@
-package leetcode.counting_bits
+package leetcode.binary.counting_bits
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.params.ParameterizedTest

@@ -1,4 +1,4 @@
-package leetcode.binary_sum
+package leetcode.binary.binary_sum
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.params.ParameterizedTest
