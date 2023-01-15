@@ -13,6 +13,7 @@ internal class WordBreakKtTest {
             Arguments.of("leetcode", listOf("leet", "code"), true),
             Arguments.of("applepenapple", listOf("apple", "pen"), true),
             Arguments.of("catsandog", listOf("cats", "dog", "sand", "and", "cat"), false),
+            Arguments.of("cars", listOf("car", "ca", "rs"), true),
         )
     }
 
@@ -20,5 +21,11 @@ internal class WordBreakKtTest {
     @MethodSource("wordWithWordDictAndResult")
     fun shouldReturnIfWordMatchesBreakWords(word: String, wordDict: List<String>, expectedResult: Boolean) {
         Assertions.assertThat(wordBreak(word, wordDict)).isEqualTo(expectedResult)
+    }
+
+    @ParameterizedTest
+    @MethodSource("wordWithWordDictAndResult")
+    fun shouldReturnIfWordMatchesBreakWordsWiTree(word: String, wordDict: List<String>, expectedResult: Boolean) {
+        Assertions.assertThat(wordBreakWithTrie(word, wordDict)).isEqualTo(expectedResult)
     }
 }

@@ -1,7 +1,10 @@
 package leetcode.dynamic.word_break
 
+import trie.structure.Trie
+
 fun main() {
     println(wordBreak("leetcode", listOf("leet", "code")))
+    println(wordBreakWithTrie("leetcode", listOf("leet", "code")))
 }
 
 fun wordBreak(s: String, wordDict: List<String>): Boolean {
@@ -37,4 +40,17 @@ fun containsWordDictInSubstring(s: String, index: Int, word: String): Boolean {
 
     val substring = s.substring(startIndex, index + 1)
     return substring == word
+}
+
+fun wordBreakWithTrie(s: String, wordDict: List<String>): Boolean {
+    val prefixTree = buildPrefixTree(wordDict)
+
+    return prefixTree.matchesPrefixes(s)
+}
+
+fun buildPrefixTree(wordDict: List<String>): Trie {
+    val trie = Trie(Trie.Node(' ', true, HashMap()))
+    wordDict.forEach(trie::getOrAddChild)
+
+    return trie
 }
