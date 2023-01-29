@@ -25,7 +25,7 @@ internal class WordBreakKtTest {
 
     @ParameterizedTest
     @MethodSource("wordWithWordDictAndResult")
-    fun shouldReturnIfWordMatchesBreakWordsWiTree(word: String, wordDict: List<String>, expectedResult: Boolean) {
+    fun shouldReturnIfWordMatchesBreakWordsWithTree(word: String, wordDict: List<String>, expectedResult: Boolean) {
         Assertions.assertThat(wordBreakWithTrie(word, wordDict)).isEqualTo(expectedResult)
     }
 }

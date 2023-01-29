@@ -4,16 +4,17 @@ class Trie(private val root: Node) {
 
     fun getOrAddChild(value: String) {
         var currentNode = root
-        for ((index, char) in value.withIndex()) {
+
+        for (char in value) {
             currentNode = currentNode.children.computeIfAbsent(char) { valToAdd ->
                 Node(
                     valToAdd,
-                    isLastCharacter(index, value), HashMap()
+                    false, HashMap()
                 )
             }
-
-            // TODO: should recreate current node when it turns out it's the end not (for example). Inserts car first and the cak
         }
+
+        currentNode.setIsEnd(true)
     }
 
     fun matchesPrefixes(value: String): Boolean {
@@ -39,7 +40,34 @@ class Trie(private val root: Node) {
         return false
     }
 
-    private fun isLastCharacter(index: Int, value: String) = index == value.length - 1
+    class Node(val label: Char, var isEnd: Boolean, val children: MutableMap<Char, Node>) {
 
-    data class Node(val label: Char, val isEnd: Boolean, val children: MutableMap<Char, Node>)
+        fun setIsEnd(isEnd: Boolean) {
+            this.isEnd = isEnd
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) return true
+            if (javaClass != other?.javaClass) return false
+
+            other as Node
+
+            if (label != other.label) return false
+            if (isEnd != other.isEnd) return false
+            if (children != other.children) return false
+
+            return true
+        }
+
+        override fun hashCode(): Int {
+            var result = label.hashCode()
+            result = 31 * result + isEnd.hashCode()
+            result = 31 * result + children.hashCode()
+            return result
+        }
+
+        override fun toString(): String {
+            return "Node(label=$label, isEnd=$isEnd, children=$children)"
+        }
+    }
 }

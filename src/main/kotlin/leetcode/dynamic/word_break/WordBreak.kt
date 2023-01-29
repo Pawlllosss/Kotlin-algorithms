@@ -42,6 +42,7 @@ fun containsWordDictInSubstring(s: String, index: Int, word: String): Boolean {
     return substring == word
 }
 
+// time limit exceeded for some of cases
 fun wordBreakWithTrie(s: String, wordDict: List<String>): Boolean {
     val prefixTree = buildPrefixTree(wordDict)
 
