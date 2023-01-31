@@ -21,4 +21,10 @@ internal class CoinChangeKtTest {
     fun shouldReturnFewestNumberOfCoinsToMakeAmount(coins: IntArray, amount: Int, result: Int) {
         Assertions.assertThat(coinChange(coins, amount)).isEqualTo(result)
     }
+
+    @ParameterizedTest
+    @MethodSource("coinsWithAmountAndResult")
+    fun shouldReturnFewestNumberOfCoinsToMakeAmount_2(coins: IntArray, amount: Int, result: Int) {
+        Assertions.assertThat(coinChange2(coins, amount)).isEqualTo(result)
+    }
 }

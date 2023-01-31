@@ -1,5 +1,7 @@
 package leetcode.dynamic.coin_change
 
+import java.lang.Integer.min
+
 fun main() {
     println(coinChange(intArrayOf(1, 2, 5), 5))
 }
@@ -30,4 +32,20 @@ fun coinChange(coins: IntArray, amount: Int): Int {
     }
 
     return amounts.last()
+}
+
+fun coinChange2(coins: IntArray, amount: Int): Int {
+    val amounts = IntArray(amount + 1) { amount + 1 }
+
+    amounts[0] = 0
+
+    for (currentAmount in amounts.indices) {
+        for (coin in coins) {
+            if (coin <= currentAmount) {
+                amounts[currentAmount] = min(amounts[currentAmount], amounts[currentAmount - coin] + 1)
+            }
+        }
+    }
+
+    return if (amounts.last() == amount + 1) -1 else amounts.last()
 }
