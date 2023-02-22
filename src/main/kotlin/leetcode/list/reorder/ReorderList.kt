@@ -7,47 +7,45 @@ fun reorderList(head: ListNode?) {
         return
     }
 
-    // need to find the middle of a list
-
-    traverse(head, head)
+    val middleNode = findMiddleNode(head)
+    val lastNodeOf2ndHalf = reverseList(middleNode)
+    middleNode.next = null // TODO: can I do that in reverse list method?
+    mergeWithAlternateOrder(head, lastNodeOf2ndHalf)
 }
 
-fun traverse(beginning: ListNode, currentEnd: ListNode?): ListNode {
-    if(currentEnd == null) {
-        return beginning
+fun findMiddleNode(head: ListNode): ListNode {
+    var slowPointer = head
+    var fastPointer = head
+
+    while (fastPointer.next != null && fastPointer.next?.next != null) {
+        slowPointer = slowPointer.next!!
+        fastPointer = fastPointer.next?.next!!
     }
-
-    val currentBeginning = traverse(beginning, currentEnd.next)
-
-    if (currentBeginning == currentEnd || currentBeginning.next == currentEnd) {
-        currentBeginning.next = null
-        return currentBeginning
-    }
-
-    val next = currentBeginning.next
-
-    currentBeginning.next = currentEnd
-    currentEnd.next = next
-
-    return next!!
+    return slowPointer
 }
 
-//fun traverse(currentBeginning: ListNode, currentEnd: ListNode): ListNode {
-//    if(currentEnd.next == null) {
-//        return currentEnd
-//    }
-//
-//    val lastNode = traverse(currentBeginning, currentEnd.next)
-//
-//    if (currentBeginning == currentEnd || currentBeginning.next == currentEnd) {
-//        currentBeginning.next = null
-//        return currentBeginning
-//    }
-//
-//    val next = currentBeginning.next
-//
-//    currentBeginning.next = currentEnd
-//    currentEnd.next = next
-//
-//    return next!!
-//}
+fun reverseList(node: ListNode): ListNode {
+    if (node.next == null) {
+        return node
+    }
+    val lastNode = reverseList(node.next!!)
+    node.next!!.next = node
+
+    return lastNode
+}
+
+fun mergeWithAlternateOrder(list1: ListNode, list2: ListNode) {
+    var pointer1: ListNode? = list1
+    var pointer2: ListNode? = list2
+
+    while (pointer1 != null && pointer2 != null) {
+        val tmp1 = pointer1.next
+        val tmp2 = pointer2.next
+
+        pointer1.next = pointer2
+        pointer2.next = tmp1
+
+        pointer1 = tmp1
+        pointer2 = tmp2
+    }
+}
