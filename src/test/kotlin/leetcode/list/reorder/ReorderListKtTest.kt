@@ -25,6 +25,10 @@ internal class ReorderListKtTest {
                 constructList(listOf(ListNode(2), ListNode(1)))
             ),
             Arguments.of(constructList(listOf(ListNode(1))), constructList(listOf(ListNode(1)))),
+            Arguments.of(
+                constructList(listOf(ListNode(1), ListNode(2), ListNode(3), ListNode(4), ListNode(5), ListNode(6))),
+                constructList(listOf(ListNode(1), ListNode(6), ListNode(2), ListNode(5), ListNode(3), ListNode(4)))
+            ),
         )
 
         fun compareLists(list1: ListNode, list2: ListNode): Boolean {
