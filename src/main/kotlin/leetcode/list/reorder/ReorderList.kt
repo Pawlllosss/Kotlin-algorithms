@@ -9,7 +9,7 @@ fun reorderList(head: ListNode?) {
 
     val middleNode = findMiddleNode(head)
     val lastNodeOf2ndHalf = reverseList(middleNode)
-    middleNode.next = null // TODO: can I do that in reverse list method?
+    middleNode.next = null
     mergeWithAlternateOrder(head, lastNodeOf2ndHalf)
 }
 
