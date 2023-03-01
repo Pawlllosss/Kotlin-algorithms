@@ -22,7 +22,7 @@ internal class ReorderListKtTest {
             ),
             Arguments.of(
                 constructList(listOf(ListNode(1), ListNode(2))),
-                constructList(listOf(ListNode(2), ListNode(1)))
+                constructList(listOf(ListNode(1), ListNode(2)))
             ),
             Arguments.of(constructList(listOf(ListNode(1))), constructList(listOf(ListNode(1)))),
             Arguments.of(
