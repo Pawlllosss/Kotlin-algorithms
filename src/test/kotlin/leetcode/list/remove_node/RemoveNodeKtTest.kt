@@ -19,6 +19,10 @@ internal class RemoveNodeKtTest {
                 constructList(listOf(ListNode(1), ListNode(2), ListNode(3), ListNode(5)))
             ),
             Arguments.of(
+                constructList(listOf(ListNode(1), ListNode(2), ListNode(3), ListNode(4), ListNode(5))), 1,
+                constructList(listOf(ListNode(1), ListNode(2), ListNode(3), ListNode(4)))
+            ),
+            Arguments.of(
                 constructList(listOf(ListNode(1), ListNode(2))), 1,
                 constructList(listOf(ListNode(1)))
             ),
@@ -43,5 +47,26 @@ internal class RemoveNodeKtTest {
     @Test
     fun removeNthNodeShouldReturnNullIfListContainsOneElement() {
         Assertions.assertThat(removeNthFromEnd(ListNode(1), 1)).isNull()
+    }
+
+
+    @ParameterizedTest
+    @MethodSource("listInputWithNodeIndexAndListOutput")
+    fun removeNthFromEndTwoPointersListInputWithNodeIndexAndListOutput(
+        input: ListNode,
+        nodeIndex: Int,
+        expectedResult: ListNode
+    ) {
+        Assertions.assertThat(
+            ListTestingUtils.compareLists(
+                removeNthFromEndTwoPointers(input, nodeIndex)!!,
+                expectedResult
+            )
+        ).isTrue
+    }
+
+    @Test
+    fun removeNthFromEndTwoPointersShouldReturnNullIfListContainsOneElement() {
+        Assertions.assertThat(removeNthFromEndTwoPointers(ListNode(1), 1)).isNull()
     }
 }
