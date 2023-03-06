@@ -1,6 +1,8 @@
 package leetcode.list.reorder
 
 import leetcode.list.ListNode
+import leetcode.list.util.ListTestingUtils.compareLists
+import leetcode.list.util.ListTestingUtils.constructList
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -30,37 +32,6 @@ internal class ReorderListKtTest {
                 constructList(listOf(ListNode(1), ListNode(6), ListNode(2), ListNode(5), ListNode(3), ListNode(4)))
             ),
         )
-
-        fun compareLists(list1: ListNode, list2: ListNode): Boolean {
-            var currentList1 = list1
-            var currentList2 = list2
-
-            while (currentList1.`val` == currentList2.`val`) {
-                if (currentList1.next == null && currentList2.next == null) {
-                    return true
-                } else if (currentList1.next == null || currentList2.next == null) {
-                    return false
-                }
-
-                currentList1 = currentList1.next!!
-                currentList2 = currentList2.next!!
-            }
-
-            return false
-        }
-
-        private fun constructList(nodes: List<ListNode>): ListNode {
-            val head = nodes.first()
-            var currentNode = head
-
-            for (i in 1 until nodes.size) {
-                currentNode.next = nodes[i]
-                currentNode = nodes[i]
-            }
-
-
-            return head
-        }
     }
 
     @ParameterizedTest
