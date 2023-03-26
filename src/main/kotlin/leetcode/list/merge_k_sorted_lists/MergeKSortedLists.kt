@@ -2,6 +2,7 @@ package leetcode.list.merge_k_sorted_lists
 
 import heap.Heap
 import leetcode.list.ListNode
+import java.util.PriorityQueue
 
 fun mergeKLists(lists: Array<ListNode?>): ListNode? {
     val priorityQueue = Heap<Int>()
