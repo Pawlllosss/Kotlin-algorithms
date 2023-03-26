@@ -27,11 +27,15 @@ class Heap<T : Comparable<T>>(initialSize: Int = 0) {
     }
 
     fun poll(): T? {
-        TODO("Not yet implemented")
-        // TODO: need to have the heapify implemented
+        val root = peek() ?: return null
+        delete(0)
+
+        return root
     }
 
     fun peek(): T? = if (size > 0) nodes[0] else null
+
+    fun isEmpty(): Boolean = size == 0
 
     private fun getParent(index: Int): T = nodes[getParentIndex(index)]
 
@@ -75,6 +79,32 @@ class Heap<T : Comparable<T>>(initialSize: Int = 0) {
         val parent = getParent(index)
 
         return parent > nodes[index]
+    }
+
+    private fun delete(index: Int) {
+        Collections.swap(nodes, 0, size - 1)
+        nodes.removeLast()
+        size--
+
+        heapify(0)
+    }
+
+    private fun heapify(index: Int) {
+        var smallestIndex = index
+        val leftChildrenIndex = getLeftChildrenIndex(index)
+        val rightChildrenIndex = getRightChildrenIndex(index)
+
+        if (leftChildrenIndex != null && nodes[smallestIndex] > nodes[leftChildrenIndex]) {
+            smallestIndex = leftChildrenIndex
+        }
+        if (rightChildrenIndex != null && nodes[smallestIndex] > nodes[rightChildrenIndex]) {
+            smallestIndex = rightChildrenIndex
+        }
+
+        if (smallestIndex != index) {
+            Collections.swap(nodes, index, smallestIndex)
+            heapify(smallestIndex)
+        }
     }
 
 }

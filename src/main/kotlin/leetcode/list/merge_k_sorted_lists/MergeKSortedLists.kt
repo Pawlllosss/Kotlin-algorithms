@@ -5,6 +5,11 @@ import leetcode.list.ListNode
 
 fun mergeKLists(lists: Array<ListNode?>): ListNode? {
     val priorityQueue = Heap<Int>()
+//    val priorityQueue = PriorityQueue<Int>()
+
+    if (lists.isEmpty()) {
+        return null
+    }
 
     lists.forEach {
         var pointer = it
@@ -13,5 +18,17 @@ fun mergeKLists(lists: Array<ListNode?>): ListNode? {
             pointer = pointer.next
         }
     }
-    return null
+
+    var sortedList: ListNode?
+    val queueSmallestElement = priorityQueue.poll() ?: return null
+
+    sortedList = ListNode(queueSmallestElement)
+    var currentSortedListNode = sortedList
+
+    while (!priorityQueue.isEmpty()) {
+        val queueSmallestElement = priorityQueue.poll()!!
+        currentSortedListNode?.next = ListNode(queueSmallestElement)
+        currentSortedListNode = currentSortedListNode?.next
+    }
+    return sortedList
 }
