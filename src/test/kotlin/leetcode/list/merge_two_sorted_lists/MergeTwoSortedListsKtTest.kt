@@ -1,4 +1,4 @@
-package leetcode.list.merge_two_sorterd_lists
+package leetcode.list.merge_two_sorted_lists
 
 import leetcode.list.ListNode
 import leetcode.list.util.ListTestingUtils.compareLists
