@@ -5,49 +5,65 @@ import java.util.*
 
 class MedianFinder() {
 
-    private var currentMedian: Double? = null
     private var currentSize: Int = 0
     private val smallerHalfLargest: PriorityQueue<Int> = PriorityQueue(Collections.reverseOrder())
     private val biggerHalfSmallest: PriorityQueue<Int> = PriorityQueue()
 
     fun addNum(num: Int) {
-        currentSize++
-        when {
-            currentMedian == null -> {
-                currentMedian = num.toDouble()
-                biggerHalfSmallest.add(num)
+        if (currentSize == 0) {
+            biggerHalfSmallest.add(num)
+        } else if (currentSize == 1) {
+            if (smallerHalfLargest.isEmpty()) { // TODO: after first run it is always true
+                if (num < biggerHalfSmallest.peek()) {
+                    smallerHalfLargest.add(num)
+                } else {
+                    smallerHalfLargest.add(biggerHalfSmallest.poll())
+                    biggerHalfSmallest.add(num)
+                }
+            } else {
+                if (num < smallerHalfLargest.peek()) {
+                    biggerHalfSmallest.add(num)
+                } else {
+                    biggerHalfSmallest.add(smallerHalfLargest.poll())
+                    smallerHalfLargest.add(num)
+                }
             }
-            num < currentMedian!! -> smallerHalfLargest.add(num)
-            else -> biggerHalfSmallest.add(num)
+        } else {
+
+            val smallerHalfTop = smallerHalfLargest.peek()
+            val biggerHalfTop = biggerHalfSmallest.peek()
+
+            if (num < smallerHalfTop) {
+                if (smallerHalfLargest.size > biggerHalfSmallest.size) {
+                    biggerHalfSmallest.add(smallerHalfLargest.poll())
+                }
+                smallerHalfLargest.add(num)
+            } else if (num > biggerHalfTop) {
+                if (smallerHalfLargest.size < biggerHalfSmallest.size) {
+                    smallerHalfLargest.add(biggerHalfSmallest.poll())
+                }
+                biggerHalfSmallest.add(num)
+            } else {
+                // case when item is in the middle
+                if (smallerHalfLargest.size > biggerHalfSmallest.size) {
+                    biggerHalfSmallest.add(num)
+                } else {
+                    smallerHalfLargest.add(num)
+                }
+            }
+
         }
 
-        currentMedian = calculateNewMedian()
+        currentSize++
     }
 
     fun findMedian(): Double {
-        return currentMedian ?: throw IllegalStateException("Find median called before adding any value")
-    }
+        if (currentSize == 0) {
+            throw IllegalStateException("Find median called before adding any value")
+        }
 
-    private fun calculateNewMedian(): Double {
         return when {
-            currentSize % 2 == 0 -> return when {
-                smallerHalfLargest.isNotEmpty() && biggerHalfSmallest.isNotEmpty() -> {
-                    (smallerHalfLargest.peek()!! + biggerHalfSmallest.peek()!!) / 2.0
-                }
-                smallerHalfLargest.isNotEmpty() -> {
-                    val top1 = smallerHalfLargest.poll()
-                    val top2 = smallerHalfLargest.peek()
-                    smallerHalfLargest.add(top1)
-                    (top1 + top2) / 2.0
-                }
-                else -> {
-                    val top1 = biggerHalfSmallest.poll()
-                    val top2 = biggerHalfSmallest.peek()
-                    biggerHalfSmallest.add(top1)
-                    (top1 + top2) / 2.0
-
-                }
-            }
+            currentSize > 0 && currentSize % 2 == 0 -> (smallerHalfLargest.peek()!! + biggerHalfSmallest.peek()!!) / 2.0
             smallerHalfLargest.size > biggerHalfSmallest.size -> smallerHalfLargest.peek().toDouble()
             else -> biggerHalfSmallest.peek().toDouble()
         }
