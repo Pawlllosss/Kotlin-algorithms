@@ -1,9 +1,10 @@
 package heap
 
 import java.util.*
+import kotlin.Comparator
 import kotlin.collections.ArrayList
 
-class Heap<T : Comparable<T>>(initialSize: Int = 0) {
+class Heap<T : Comparable<T>>(initialSize: Int = 0, private val comparator: Comparator<T> = Comparator.naturalOrder()) {
 
     private val nodes: MutableList<T> = ArrayList(initialSize)
     private var size = 0
@@ -17,7 +18,7 @@ class Heap<T : Comparable<T>>(initialSize: Int = 0) {
         var newElementIndex = size
         size++
 
-        while (isSmallerThanParent(newElementIndex)) {
+        while (comparisionNotTrueForParent(newElementIndex)) {
             val parentIndex = getParentIndex(newElementIndex)
             Collections.swap(nodes, newElementIndex, parentIndex)
             newElementIndex = parentIndex
@@ -71,7 +72,7 @@ class Heap<T : Comparable<T>>(initialSize: Int = 0) {
         }
     }
 
-    private fun isSmallerThanParent(index: Int): Boolean {
+    private fun comparisionNotTrueForParent(index: Int): Boolean {
         if (index == 0) {
             return false
         }
@@ -94,10 +95,10 @@ class Heap<T : Comparable<T>>(initialSize: Int = 0) {
         val leftChildrenIndex = getLeftChildrenIndex(index)
         val rightChildrenIndex = getRightChildrenIndex(index)
 
-        if (leftChildrenIndex != null && nodes[smallestIndex] > nodes[leftChildrenIndex]) {
+        if (leftChildrenIndex != null && comparator.compare(nodes[smallestIndex], nodes[leftChildrenIndex]) > 0) {
             smallestIndex = leftChildrenIndex
         }
-        if (rightChildrenIndex != null && nodes[smallestIndex] > nodes[rightChildrenIndex]) {
+        if (rightChildrenIndex != null && comparator.compare(nodes[smallestIndex], nodes[rightChildrenIndex]) > 0) {
             smallestIndex = rightChildrenIndex
         }
 
