@@ -3,7 +3,7 @@ package heap.median
 import java.util.*
 
 
-class MedianFinder() {
+class MedianFinder {
 
     private var currentSize: Int = 0
     private val smallerHalfLargest: PriorityQueue<Int> = PriorityQueue(Collections.reverseOrder())
@@ -13,20 +13,12 @@ class MedianFinder() {
         if (currentSize == 0) {
             biggerHalfSmallest.add(num)
         } else if (currentSize == 1) {
-            if (smallerHalfLargest.isEmpty()) { // TODO: after first run it is always true
-                if (num < biggerHalfSmallest.peek()) {
-                    smallerHalfLargest.add(num)
-                } else {
-                    smallerHalfLargest.add(biggerHalfSmallest.poll())
-                    biggerHalfSmallest.add(num)
-                }
+            // after previous run only biggerHalfSmallest is populated
+            if (num < biggerHalfSmallest.peek()) {
+                smallerHalfLargest.add(num)
             } else {
-                if (num < smallerHalfLargest.peek()) {
-                    biggerHalfSmallest.add(num)
-                } else {
-                    biggerHalfSmallest.add(smallerHalfLargest.poll())
-                    smallerHalfLargest.add(num)
-                }
+                smallerHalfLargest.add(biggerHalfSmallest.poll())
+                biggerHalfSmallest.add(num)
             }
         } else {
 
