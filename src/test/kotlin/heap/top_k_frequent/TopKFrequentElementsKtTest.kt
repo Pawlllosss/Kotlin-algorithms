@@ -22,4 +22,10 @@ internal class TopKFrequentElementsKtTest {
     fun shouldReturnTopFrequentElements(nums: IntArray, k: Int, result: IntArray) {
         Assertions.assertThat(topKFrequent(nums, k)).isEqualTo(result)
     }
+
+    @ParameterizedTest
+    @MethodSource("inputArrayWithTopCountAndResult")
+    fun shouldReturnTopFrequentElementsWithMap(nums: IntArray, k: Int, result: IntArray) {
+        Assertions.assertThat(topKFrequentWithMap(nums, k)).isEqualTo(result)
+    }
 }
