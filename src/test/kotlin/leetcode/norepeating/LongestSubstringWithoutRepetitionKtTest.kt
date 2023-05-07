@@ -26,4 +26,10 @@ internal class LongestSubstringWithoutRepetitionKtTest {
     fun shouldReturnLengthOfLongestSubstringWithoutRepeatingCharacters(string: String, expectedResult: Int) {
         Assertions.assertThat(lengthOfLongestSubstring(string)).isEqualTo(expectedResult)
     }
+
+    @ParameterizedTest
+    @MethodSource("stringWithResult")
+    fun shouldReturnLengthOfLongestSubstringWithoutRepeatingCharacters2(string: String, expectedResult: Int) {
+        Assertions.assertThat(lengthOfLongestSubstringWithIndexes(string)).isEqualTo(expectedResult)
+    }
 }
