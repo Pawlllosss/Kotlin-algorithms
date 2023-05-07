@@ -17,6 +17,7 @@ internal class LongestSubstringWithoutRepetitionKtTest {
             Arguments.of("pwwkew", 3),
             Arguments.of("a3a32a3", 3),
             Arguments.of("aab", 2),
+            Arguments.of("loddktdji", 5),
         )
     }
 
