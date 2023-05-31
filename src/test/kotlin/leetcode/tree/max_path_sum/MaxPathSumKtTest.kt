@@ -1,0 +1,44 @@
+package leetcode.tree.max_path_sum
+
+import leetcode.tree.TreeNode
+import org.assertj.core.api.Assertions
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.MethodSource
+import java.util.stream.Stream
+
+internal class MaxPathSumKtTest {
+
+    companion object {
+        @JvmStatic
+        fun treeWithMaxPathSum(): Stream<Arguments> = Stream.of(
+            Arguments.of(createTree1(), 6),
+            Arguments.of(createTree2(), 42),
+        )
+
+        private fun createTree1(): TreeNode {
+            val root = TreeNode(1)
+            root.left = TreeNode(2)
+            root.right = TreeNode(3)
+
+            return root
+        }
+
+        private fun createTree2(): TreeNode {
+            val root = TreeNode(-10)
+            root.left = TreeNode(9)
+            val rightChildren = TreeNode(20)
+            rightChildren.left = TreeNode(15)
+            rightChildren.right = TreeNode(7)
+            root.right = rightChildren
+
+            return root
+        }
+    }
+
+    @ParameterizedTest
+    @MethodSource("treeWithMaxPathSum")
+    fun shouldReturnMaxPathSum(root: TreeNode, expectedResult: Int) {
+        Assertions.assertThat(maxPathSum(root)).isEqualTo(expectedResult)
+    }
+}
