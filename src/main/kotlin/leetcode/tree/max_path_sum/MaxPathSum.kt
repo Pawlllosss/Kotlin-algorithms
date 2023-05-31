@@ -5,30 +5,20 @@ import kotlin.math.max
 
 fun maxPathSum(root: TreeNode?): Int {
     if (root == null) {
-        throw IllegalArgumentException("Root of the tree is supposed to be present")
-    }
-    return maxPathSum(root, root.`val`)
-//    if (root == null) {
-//        return Int.MIN_VALUE
-//    }
-//    val currentMax = root.`val`
-
-    // possible steps:
-    // 1. abandon the current node (and path), start calculating path from left or right
-    // 2. continue to left
-    // 3. continue to right
-
-}
-
-private fun maxPathSum(root: TreeNode?, currentMax: Int): Int {
-    if (root == null) {
-        return currentMax
+        return Int.MIN_VALUE
     }
 
-    val leftMax = maxPathSum(root.left, root.`val`) // TODO: it's not supposed to be passed that way, need to figure it out after writing the rest of flow
-    val rightMax = maxPathSum(root.right, root.`val`) // TODO: it's not supposed to be passed that way, need to figure it out after writing the rest of flow
-
+    val leftMax = maxPathSum(root.left)
+    val rightMax = maxPathSum(root.right)
+    // path goes from left to right through root
+    val sumLeftToRightThroughNode = leftMax + rightMax + root.`val`
+    // path goes only through children
     val childrenMax = max(leftMax, rightMax)
+    // path goes from root to left or right
+    val sumChildrenMaxThroughNode = childrenMax + root.`val`
+    val maxThroughNode = max(sumLeftToRightThroughNode, sumChildrenMaxThroughNode)
+    val childrenWithOrWithoutRootMax = max(childrenMax, maxThroughNode)
 
-    return max(childrenMax, childrenMax + currentMax)
+    // include case when no children (Int.MIN_VALUE)
+    return max(childrenWithOrWithoutRootMax, root.`val`)
 }
