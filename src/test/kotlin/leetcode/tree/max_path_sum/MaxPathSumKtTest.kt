@@ -14,6 +14,8 @@ internal class MaxPathSumKtTest {
         fun treeWithMaxPathSum(): Stream<Arguments> = Stream.of(
             Arguments.of(createTree1(), 6),
             Arguments.of(createTree2(), 42),
+            Arguments.of(createTree3(), 3),
+            Arguments.of(TreeNode(-3), -3),
         )
 
         private fun createTree1(): TreeNode {
@@ -30,6 +32,21 @@ internal class MaxPathSumKtTest {
             val rightChildren = TreeNode(20)
             rightChildren.left = TreeNode(15)
             rightChildren.right = TreeNode(7)
+            root.right = rightChildren
+
+            return root
+        }
+
+        private fun createTree3(): TreeNode {
+            val root = TreeNode(1)
+            val leftChildren = TreeNode(-2)
+            val leftLeftChildren = TreeNode(1)
+            leftLeftChildren.left = TreeNode(-1)
+            leftChildren.left = leftLeftChildren
+            leftChildren.right = TreeNode(3)
+            val rightChildren = TreeNode(-3)
+            rightChildren.left = TreeNode(-2)
+            root.left = leftChildren
             root.right = rightChildren
 
             return root

@@ -3,22 +3,40 @@ package leetcode.tree.max_path_sum
 import leetcode.tree.TreeNode
 import kotlin.math.max
 
+// constraint of task is -1000 <= Node.val <= 1000
+const val MINIMUM_NODE_VALUE = -1001
+
 fun maxPathSum(root: TreeNode?): Int {
+    return maxPathSumAndIsGoingThroughRoot(root).first
+}
+
+private fun maxPathSumAndIsGoingThroughRoot(root: TreeNode?): Pair<Int, Boolean> {
     if (root == null) {
-        return Int.MIN_VALUE
+        return MINIMUM_NODE_VALUE to true
     }
 
-    val leftMax = maxPathSum(root.left)
-    val rightMax = maxPathSum(root.right)
-    // path goes from left to right through root
-    val sumLeftToRightThroughNode = leftMax + rightMax + root.`val`
+    val leftMax = maxPathSumAndIsGoingThroughRoot(root.left)
+    val rightMax = maxPathSumAndIsGoingThroughRoot(root.right)
     // path goes only through children
-    val childrenMax = max(leftMax, rightMax)
-    // path goes from root to left or right
-    val sumChildrenMaxThroughNode = childrenMax + root.`val`
-    val maxThroughNode = max(sumLeftToRightThroughNode, sumChildrenMaxThroughNode)
-    val childrenWithOrWithoutRootMax = max(childrenMax, maxThroughNode)
+    val childrenMax = max(leftMax.first, rightMax.first)
+    // path goes through root
+    val maxThroughRoot = calculateSumThroughRoot(leftMax, rightMax, root)
 
-    // include case when no children (Int.MIN_VALUE)
-    return max(childrenWithOrWithoutRootMax, root.`val`)
+    return if (maxThroughRoot > childrenMax) {
+        maxThroughRoot to true
+    } else {
+        childrenMax to false
+    }
+}
+
+private fun calculateSumThroughRoot(
+    leftMax: Pair<Int, Boolean>,
+    rightMax: Pair<Int, Boolean>,
+    root: TreeNode
+): Int {
+    var sum = root.`val`
+    if (leftMax.second && leftMax.first > 0) sum += leftMax.first
+    if (rightMax.second && rightMax.first > 0) sum += rightMax.first
+
+    return sum
 }
