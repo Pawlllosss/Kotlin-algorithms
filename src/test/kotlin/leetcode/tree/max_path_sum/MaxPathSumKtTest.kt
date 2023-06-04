@@ -58,6 +58,7 @@ internal class MaxPathSumKtTest {
     @ParameterizedTest
     @MethodSource("treeWithMaxPathSum")
     fun shouldReturnMaxPathSum(root: TreeNode, expectedResult: Int) {
-        Assertions.assertThat(maxPathSum(root)).isEqualTo(expectedResult)
+        val solver = MaxPathSumSolver()
+        Assertions.assertThat(solver.maxPathSum(root)).isEqualTo(expectedResult)
     }
 }
