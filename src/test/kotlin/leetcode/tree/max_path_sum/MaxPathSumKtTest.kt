@@ -16,7 +16,7 @@ internal class MaxPathSumKtTest {
             Arguments.of(createTree1(), 6),
             Arguments.of(createTree2(), 42),
             Arguments.of(createTree3(), 3),
-            Arguments.of(generateTree(listOf(5, 4, 8, 11, null, 13, 4, 7, 2, null, null, null, 1)), 48),
+            Arguments.of(generateTree(listOf(5, 4, 8, 11, null, 13, 4, 7, 2, null, null, null, 1)), 49),
             Arguments.of(TreeNode(-3), -3),
         )
 
