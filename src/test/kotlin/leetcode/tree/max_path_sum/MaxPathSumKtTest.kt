@@ -1,6 +1,7 @@
 package leetcode.tree.max_path_sum
 
 import leetcode.tree.TreeNode
+import leetcode.tree.generateTree
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
@@ -15,6 +16,7 @@ internal class MaxPathSumKtTest {
             Arguments.of(createTree1(), 6),
             Arguments.of(createTree2(), 42),
             Arguments.of(createTree3(), 3),
+            Arguments.of(generateTree(listOf(5, 4, 8, 11, null, 13, 4, 7, 2, null, null, null, 1)), 48),
             Arguments.of(TreeNode(-3), -3),
         )
 
