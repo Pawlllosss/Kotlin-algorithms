@@ -20,10 +20,10 @@ internal class MaxDepthKtTest {
         private fun createTree1(): TreeNode {
             val root = TreeNode(3)
             root.left = TreeNode(9)
-            val rightToRoot = TreeNode(20)
-            rightToRoot.left = TreeNode(15)
-            rightToRoot.right = TreeNode(7)
-            root.right = rightToRoot
+            val rightChildren = TreeNode(20)
+            rightChildren.left = TreeNode(15)
+            rightChildren.right = TreeNode(7)
+            root.right = rightChildren
 
             return root
         }
